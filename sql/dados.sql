@@ -1,0 +1,14 @@
+INSERT INTO users(name, nick, email, password) values
+("Usuario 1", "usuario_1", "ususario1@gmail.com", "$2a$10$RJrKt5KtmXjWt9IpNwZjdOoGGdkL2jb/FRZ.BdyvdAW.i7IIpX8M6"),
+("Usuario 2", "usuario_2", "ususario2@gmail.com", "$2a$10$RJrKt5KtmXjWt9IpNwZjdOoGGdkL2jb/FRZ.BdyvdAW.i7IIpX8M6"),
+("Usuario 3", "usuario_3", "ususario3@gmail.com", "$2a$10$RJrKt5KtmXjWt9IpNwZjdOoGGdkL2jb/FRZ.BdyvdAW.i7IIpX8M6");
+
+INSERT INTO followers(usuario_id, seguidor_id) values
+(1, 2),
+(3, 1),
+(1, 3);
+
+insert into publicacoes(titulo, conteudo, autor_id) values 
+("Publicação do Usuário 1", "Essa é a publicação do usuário 1! Oba!", 1), 
+("Publicação do Usuário 2", "Essa é a publicação do usuário 2! Oba!", 2), 
+("Publicação do Usuário 3", "Essa é a publicação do usuário 3! Oba!", 3);
