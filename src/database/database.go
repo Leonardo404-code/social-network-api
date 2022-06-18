@@ -7,6 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql" // Driver
 )
 
+// Connect Open the connection with the dice bank
 func Connect() (*sql.DB, error) {
 	db, erro := sql.Open("mysql", config.StringConnection)
 

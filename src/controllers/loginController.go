@@ -12,6 +12,7 @@ import (
 	"net/http"
 )
 
+// Login Authenticate user and return a JWT
 func Login(w http.ResponseWriter, r *http.Request) {
 	body, erro := ioutil.ReadAll(r.Body)
 

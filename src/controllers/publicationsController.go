@@ -15,8 +15,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// CreatePost Validates user inputs and creates a new post
 func CreatePost(w http.ResponseWriter, r *http.Request) {
 	userID, erro := auth.ExtractUserID(r)
+
 	if erro != nil {
 		responses.Erro(w, http.StatusUnauthorized, erro)
 		return
@@ -64,6 +66,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusCreated, publication)
 }
 
+// SearchPosts Get a param in URL and search by Post
 func SearchPosts(w http.ResponseWriter, r *http.Request) {
 	userID, erro := auth.ExtractUserID(r)
 
@@ -82,7 +85,9 @@ func SearchPosts(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	repo := repository.NewPublicationRepository(db)
+
 	publicacoes, erro := repo.SearchPost(userID)
+
 	if erro != nil {
 		responses.Erro(w, http.StatusInternalServerError, erro)
 		return
@@ -91,6 +96,7 @@ func SearchPosts(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusOK, publicacoes)
 }
 
+// Find a single post with the ID
 func SearchPost(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
@@ -119,9 +125,9 @@ func SearchPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	responses.JSON(w, http.StatusOK, publication)
-
 }
 
+// Get Post ID, validate inputs and Update in database
 func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	userID, erro := auth.ExtractUserID(r)
 
@@ -190,6 +196,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusNoContent, nil)
 }
 
+// DeletePost get the post ID in URL and Delete
 func DeletePost(w http.ResponseWriter, r *http.Request) {
 	userID, erro := auth.ExtractUserID(r)
 
@@ -240,6 +247,7 @@ func DeletePost(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusNoContent, nil)
 }
 
+// SearchUserPublications search the user's own posts
 func SearchUserPublications(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
@@ -269,6 +277,7 @@ func SearchUserPublications(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusOK, publications)
 }
 
+// LikePost add a like in a Post
 func LikePost(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
@@ -298,6 +307,7 @@ func LikePost(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusNoContent, nil)
 }
 
+// UnlikePost remove a like in a Post
 func UnlikePost(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 

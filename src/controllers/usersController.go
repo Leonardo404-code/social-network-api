@@ -18,6 +18,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// CreateUser Validate all the fields and create a new user
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	body, erro := ioutil.ReadAll(r.Body)
 
@@ -62,6 +63,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusCreated, user)
 }
 
+// SearchUsers Search by multiple users
 func SearchUsers(w http.ResponseWriter, r *http.Request) {
 	nameOrNick := strings.ToLower(r.URL.Query().Get("usuario"))
 
@@ -85,6 +87,7 @@ func SearchUsers(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusOK, user)
 }
 
+// SearchUser Search for one user
 func SearchUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
@@ -114,6 +117,7 @@ func SearchUser(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusOK, user)
 }
 
+// UpdateUser valid all fields and update a user
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	userID, erro := strconv.ParseUint(params["usuarioId"], 10, 64)
@@ -174,6 +178,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusNoContent, nil)
 }
 
+// DeleteUser get parameter id and delete user
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
@@ -217,6 +222,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusNoContent, nil)
 }
 
+// FollowUser Add a follower to a user
 func FollowUser(w http.ResponseWriter, r *http.Request) {
 	followerID, erro := auth.ExtractUserID(r)
 
@@ -257,6 +263,7 @@ func FollowUser(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusCreated, nil)
 }
 
+// StopFollowingUser Remove a follower to a user
 func StopFollowingUser(w http.ResponseWriter, r *http.Request) {
 	followerID, erro := auth.ExtractUserID(r)
 
@@ -297,6 +304,7 @@ func StopFollowingUser(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusNoContent, nil)
 }
 
+// SearchFollowers Look for followers of the authenticated user
 func SearchFollowers(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
@@ -327,6 +335,7 @@ func SearchFollowers(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusOK, followers)
 }
 
+// UpdatePassword update user password
 func UpdatePassword(w http.ResponseWriter, r *http.Request) {
 	userIDInToken, erro := auth.ExtractUserID(r)
 	if erro != nil {
